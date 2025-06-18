@@ -8,20 +8,28 @@ variable "vpc_cidr_block" {
   type        = string
 }
 
-variable "public_subnet_cidr" {
-  description = "CIDR block for public subnet"
+variable "project_name" {
+  description = "Name prefix for all resources"
   type        = string
+  default     = "neha-3tier"
 }
 
-variable "private_subnet_cidr" {
-  description = "CIDR block for private subnet"
+variable "vpc_cidr_block" {
+  description = "CIDR block for the VPC"
   type        = string
+  default     = "10.0.0.0/16"
 }
 
-variable "availability_zone" {
-  description = "AWS Availability Zone"
+# Availability Zones
+variable "availability_zone_1" {
+  description = "Primary Availability Zone"
   type        = string
+  default     = "ap-south-1a"
 }
+
+variable "availability_zone_2" {
+  description
+
 
 # variable "ami_id" {
 # description = "AMI ID for EC2 instances"
