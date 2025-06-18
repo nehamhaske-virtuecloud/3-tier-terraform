@@ -13,7 +13,8 @@ resource "aws_instance" "app_instance" {
               cd /home/ubuntu
               git clone https://github.com/nehamhaske-virtuecloud/springboot-maven-CICD.git
               cd springboot-maven-CICD
-              ./mvnw spring-boot:run &
+              # Run the app and store logs
+              nohup ./mvnw spring-boot:run > /home/ubuntu/app.log 2>&1 &
               EOF
 
   tags = {
