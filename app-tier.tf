@@ -11,9 +11,8 @@ resource "aws_instance" "app_instance" {
               apt update -y
               apt install -y openjdk-17-jdk unzip git maven
               cd /home/ubuntu
-              wget https://chat.openai.com/mnt/data/springboot-mysql-demo.zip -O app.zip
-              unzip app.zip
-              cd springboot-mysql-demo
+              git clone https://github.com/nehamhaske-virtuecloud/springboot-maven-CICD.git
+              cd springboot-maven-CICD
               ./mvnw spring-boot:run &
               EOF
 
