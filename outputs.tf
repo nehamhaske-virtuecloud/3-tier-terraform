@@ -19,7 +19,8 @@ output "web_instance_public_ip" {
 
 output "app_instance_private_ip" {
   description = "Private IP of the App EC2 instance"
-  value       = aws_instance.app.private_ip
+  value       = aws_instance.app_instance.private_ip
+
 }
 
 output "alb_dns" {
