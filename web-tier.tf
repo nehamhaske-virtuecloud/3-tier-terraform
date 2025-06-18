@@ -16,7 +16,7 @@ resource "aws_instance" "nginx_proxy" {
               server {
                   listen 80;
                   location / {
-                      proxy_pass http://$APP_PRIVATE_IP:8080/;
+                      proxy_pass http://aws_instance.app.private_ip:8080/;
                       proxy_set_header Host \$host;
                       proxy_set_header X-Real-IP \$remote_addr;
                       proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
