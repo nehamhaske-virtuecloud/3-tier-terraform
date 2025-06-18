@@ -3,7 +3,7 @@ data "aws_ami" "ubuntu" {
   owners      = ["099720109477"]
 
   filter {
-    name   = "image-id"
-    values = ["ami-0f918f7e67a3323f0"]
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-noble-24.04-amd64-server-*"]
   }
 }
