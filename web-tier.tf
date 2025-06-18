@@ -1,11 +1,14 @@
-resource "aws_instance" "nginx_proxy" {
-  ami = data.aws_ami.ubuntu.id
-  instance_type               = "t2.micro"
-  subnet_id                   = aws_subnet.public.id
-  vpc_security_group_ids = [aws_security_group.web_sg.id]
+resource "aws_instance" "web_instance" {
+  count                     = 2
+  ami                       = data.aws_ami.ubuntu.id
+  instance_type             = var.instance_type
+  subnet_id                 = values(aws_subnet.public)[count.index].id
+  key_name                  = var.key_name
+  vpc_security_group_ids    = [aws_security_group.web_sg.id]
 
-  associate_public_ip_address = true
-  key_name                    = "my-key-pair"
+  tags = {
+    Name = "${var.project_name}-web-${count.index + 1}"
+  }
 
   user_data = <<-EOF
               #!/bin/bash
@@ -29,7 +32,7 @@ resource "aws_instance" "nginx_proxy" {
               systemctl enable nginx
               EOF
 
-  tags = {
-    Name = "nginx-web-proxy"
+ tags = {
+    Name = "${var.project_name}-web-${count.index + 1}"
   }
 }
