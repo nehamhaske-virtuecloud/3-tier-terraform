@@ -32,4 +32,6 @@ resource "aws_instance" "web_instance" {
     Name        = "${var.project_name}-web-${count.index + 1}"
     Environment = "dev"
   }
+
+  depends_on = [aws_instance.app_instance]
 }
