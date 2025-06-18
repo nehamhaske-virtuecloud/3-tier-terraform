@@ -1,12 +1,17 @@
-# VPC variables
-vpc_cidr_block         = "10.0.0.0/16"
-public_subnet_cidr     = "10.0.1.0/24"
-private_subnet_cidr    = "10.0.2.0/24"
-availability_zone      = "ap-south-1a"
+region                  = "ap-south-1"
+project_name            = "3-tier-app"
+application_environment = "dev"
+# vpc_id                  = "vpc-0c9e44e80f6c0d01d"
+# private_subnet1         = "ztronix-subnet-private1-us-east-1a"
+# private_subnet2         = "ztronix-subnet-private2-us-east-1b"
+# private_subnet3         = ""
+# public_subnet1          = "ztronix-subnet-public1-us-east-1a"
+# public_subnet2          = "ztronix-subnet-public2-us-east-1b"
+# public_subnet3          = ""
 
 # EC2 variables
 instance_type          = "t2.micro"
-key_name               = "my-new-key"
+key_name               = "my-key-pair"
 ami_id                 = "ami-0f5ee92e2d63afc18"  # Ubuntu 24.04 in ap-south-1 (Mumbai)
 
 # Application/Environment
