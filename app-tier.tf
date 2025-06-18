@@ -1,10 +1,11 @@
 resource "aws_instance" "app_instance" {
-  ami = data.aws_ami.ubuntu.id
-  instance_type          = "t2.micro"
-  subnet_id = values(aws_subnet.private_app)[0].id
-  vpc_security_group_ids = [aws_security_group.app_sg.id]
+  count                     = 1
+  ami                       = data.aws_ami.ubuntu.id
+  instance_type             = var.instance_type
+  subnet_id                 = values(aws_subnet.app_private)[0].id
+  vpc_security_group_ids    = [aws_security_group.app_sg.id]
   associate_public_ip_address = false
-  key_name               = "my-key-pair"
+  key_name                  = var.key_name
 
   user_data = <<-EOF
               #!/bin/bash
@@ -13,11 +14,13 @@ resource "aws_instance" "app_instance" {
               cd /home/ubuntu
               git clone https://github.com/nehamhaske-virtuecloud/springboot-maven-CICD.git
               cd springboot-maven-CICD
-              # Run the app and store logs
+              chmod +x mvnw
               nohup ./mvnw spring-boot:run > /home/ubuntu/app.log 2>&1 &
               EOF
 
   tags = {
-    Name = "app-instance"
+    Name        = "${var.project_name}-app-instance-${count.index + 1}"
+    Environment = "dev"
+    Tier        = "App"
   }
 }
