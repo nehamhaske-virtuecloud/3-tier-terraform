@@ -13,7 +13,8 @@ output "private_subnet_id" {
 
 output "web_instance_public_ip" {
   description = "Public IP of the Web EC2 instance"
-  value       = aws_instance.web.public_ip
+  value       = aws_instance.nginx_proxy.public_ip
+
 }
 
 output "app_instance_private_ip" {
