@@ -1,5 +1,5 @@
 resource "aws_instance" "nginx_proxy" {
-  # ami                         = "ami-0f58b397bc5c1f2e8" # Ubuntu 24.04 LTS (ap-south-1)
+  ami = data.aws_ami.ubuntu.id
   instance_type               = "t2.micro"
   subnet_id                   = aws_subnet.public[0].id
   vpc_security_group_ids = [aws_security_group.web_sg.id]
