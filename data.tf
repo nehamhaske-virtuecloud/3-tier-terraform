@@ -1,10 +1,11 @@
-data "aws_ami" "my_ami" {
+# Get the latest Ubuntu AMI from Canonical
+data "aws_ami" "ubuntu" {
   most_recent = true
-  owners      = ["amazon"]
+  owner = ["amazon"]
 
   filter {
     name   = "name"
-    values = ["al2023-ami-ecs-hvm-*-kernel-6.1-x86_64"] #dev - ami-00889ad21b50fe113
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-24.04-amd64-server-*"]
   }
 
   filter {
@@ -28,19 +29,3 @@ data "aws_ami" "my_ami" {
   }
 }
 
-data "aws_availability_zones" "available" {}
-data "aws_vpc" "3tier_vpc" {
-  id = var.vpc_id
-}
-data "aws_subnets" "public_subnets" {
-  filter {
-    name   = "tag:Name"
-    values = var.public_subnets
-  }
-}
-data "aws_subnets" "private_subnets" {
-  filter {
-    name   = "tag:Name"
-    values = var.private_subnets
-  }
-}
