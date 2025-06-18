@@ -33,15 +33,9 @@ jobs:
       - name: Terraform Format
         run: terraform fmt -recursive
 
-      - name: Terraform Plan
-        run: terraform plan -out=tfplan
+      - name: Show Terraform Plan (debug)
+        run: terraform show -no-color tfplan
 
-      - name: Terraform Apply (Debug)
-        run: |
-          terraform apply -auto-approve tfplan || (
-            echo "Terraform apply failed"
-            echo "========================"
-            terraform show -json tfplan | jq '.' > plan.json || echo "Failed to show plan"
-            exit 1
-          )
-        
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
+
