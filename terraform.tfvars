@@ -1,10 +1,12 @@
 project_name         = "neha-3tier"
 vpc_cidr_block       = "10.0.0.0/16"
-public_subnet_cidr   = "10.0.1.0/24"
-private_subnet_cidr  = "10.0.2.0/24"
-availability_zone    = "ap-south-1a"
 
-# ami_id               = "ami-0f58b397bc5c1f2e8"  # Ubuntu 24.04 LTS (update if needed)
+public_subnet_cidr  = ["10.0.1.0/24", "10.0.3.0/24"]
+private_subnet_cidr_app  = ["10.0.2.0/24", "10.0.4.0/24"]
+private_subnet_cidr_db   = ["10.0.5.0/24", "10.0.6.0/24"]
+
+availability_zones   = ["ap-south-1a", "ap-south-1b"]
+
 instance_type        = "t2.micro"
 key_name             = "my-key-pair"
 
@@ -13,4 +15,3 @@ allowed_ip           = "0.0.0.0/0"
 db_username          = "admin"
 db_password          = "password123!"
 db_name              = "sampledb"
-
