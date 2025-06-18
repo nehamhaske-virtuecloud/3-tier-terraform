@@ -43,6 +43,6 @@ resource "aws_lb_listener" "listener" {
 
 resource "aws_lb_target_group_attachment" "web_attachment" {
   target_group_arn = aws_lb_target_group.tg.arn
-  target_id        = aws_instance.web.id
+  target_id        = aws_instance.nginx_proxy
   port             = 80
 }
