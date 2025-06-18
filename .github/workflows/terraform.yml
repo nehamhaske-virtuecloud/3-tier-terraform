@@ -33,6 +33,9 @@ jobs:
       - name: Terraform Format
         run: terraform fmt -recursive
 
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
       - name: Show Terraform Plan (debug)
         run: terraform show -no-color tfplan
 
