@@ -1,7 +1,7 @@
 # Get the latest Ubuntu AMI from Canonical
 data "aws_ami" "ubuntu" {
   most_recent = true
-  owner = ["amazon"]
+  owners = ["amazon"]
 
   filter {
     name   = "name"
