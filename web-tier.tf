@@ -32,5 +32,4 @@ resource "aws_instance" "nginx_proxy" {
   tags = {
     Name = "nginx-web-proxy"
   }
-depends_on = [aws_instance.app]
 }
