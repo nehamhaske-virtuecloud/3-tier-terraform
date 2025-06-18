@@ -84,6 +84,11 @@ resource "aws_security_group" "rds_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  tags = {
+    Name = "${var.project_name}-rds-sg"
+  }
+}
+
 resource "aws_security_group" "alb_sg" {
   name        = "${var.project_name}-alb-sg"
   description = "Security group for ALB"
@@ -105,10 +110,5 @@ resource "aws_security_group" "alb_sg" {
 
   tags = {
     Name = "${var.project_name}-alb-sg"
-  }
-}
-
-  tags = {
-    Name = "${var.project_name}-rds-sg"
   }
 }
