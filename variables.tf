@@ -1,89 +1,59 @@
 variable "project_name" {
-  description = "Name prefix for all resources"
+  description = "Project name"
   type        = string
-  default     = "neha-3tier"
 }
 
 variable "vpc_cidr_block" {
   description = "CIDR block for the VPC"
   type        = string
-  default     = "10.0.0.0/16"
 }
 
-variable "availability_zone_1" {
-  description = "Primary Availability Zone"
-  type        = string
-  default     = "ap-south-1a"
+variable "public_subnet_cidr" {
+  description = "List of public subnet CIDRs"
+  type        = list(string)
 }
 
-variable "availability_zone_2" {
-  description = "Secondary Availability Zone"
-  type        = string
-  default     = "ap-south-1b"
+variable "private_subnet_cidr_app" {
+  description = "List of private subnet CIDRs for the app tier"
+  type        = list(string)
 }
 
-# Public Subnets
-variable "public_subnet_cidr_1" {
-  description = "CIDR block for Public Subnet 1"
-  type        = string
-  default     = "10.0.1.0/24"
+variable "private_subnet_cidr_db" {
+  description = "List of private subnet CIDRs for the db tier"
+  type        = list(string)
 }
 
-variable "public_subnet_cidr_2" {
-  description = "CIDR block for Public Subnet 2"
-  type        = string
-  default     = "10.0.2.0/24"
+variable "availability_zones" {
+  description = "List of availability zones"
+  type        = list(string)
 }
 
-# Private Subnets
-variable "private_subnet_cidr_1" {
-  description = "CIDR block for Private Subnet 1"
-  type        = string
-  default     = "10.0.3.0/24"
-}
-
-variable "private_subnet_cidr_2" {
-  description = "CIDR block for Private Subnet 2"
-  type        = string
-  default     = "10.0.4.0/24"
-}
-
-# Instance Type
 variable "instance_type" {
+  type        = string
   description = "EC2 instance type"
-  type        = string
-  default     = "t2.micro"
 }
 
-# SSH Key
 variable "key_name" {
-  description = "Key pair name to access EC2"
   type        = string
-  default     = "my-new-key"
+  description = "EC2 Key Pair name"
 }
 
-# CIDR for SSH Access
 variable "allowed_ip" {
-  description = "Your IP address to SSH into the EC2 instance"
   type        = string
-  default     = "0.0.0.0/0"
+  description = "Allowed IP for inbound access"
 }
 
-# RDS Configuration
 variable "db_username" {
-  description = "Username for RDS DB"
   type        = string
-  default     = "admin"
+  description = "Username for the RDS database"
 }
 
 variable "db_password" {
-  description = "Password for RDS DB"
   type        = string
-  default     = "password123!"
+  description = "Password for the RDS database"
 }
 
 variable "db_name" {
-  description = "Database name for RDS"
   type        = string
-  default     = "mydb"
+  description = "Name of the RDS database"
 }
