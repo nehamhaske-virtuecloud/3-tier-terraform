@@ -23,7 +23,7 @@ variable "availability_zone" {
   type        = string
 }
 
-variable "ami_id" {
+# variable "ami_id" {
   description = "AMI ID for EC2 instances"
   type        = string
 }
