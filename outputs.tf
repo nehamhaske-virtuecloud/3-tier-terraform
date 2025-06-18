@@ -13,14 +13,12 @@ output "public_subnet_ids" {
 }
 
 output "private_subnet_ids_app" {
-  description = "IDs of the private subnets for the app tier"
-  value       = [for s in aws_subnet.app_private : s.id]
+  value = [for s in aws_subnet.private_app : s.id]
+}
+output "private_subnet_ids_db" {
+  value = [for s in aws_subnet.private_db : s.id]
 }
 
-output "private_subnet_ids_db" {
-  description = "IDs of the private subnets for the DB tier"
-  value       = [for s in aws_subnet.db_private : s.id]
-}
 
 # ------------------------
 # EC2 & ALB Outputs
