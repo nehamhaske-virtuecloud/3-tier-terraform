@@ -49,10 +49,9 @@ output "alb_dns_name" {
 # ------------------------
 
 output "rds_endpoint" {
-  description = "RDS database endpoint"
-  value       = aws_db_instance.mysql_db.endpoint
-  sensitive   = true
+  value = aws_db_instance.db.endpoint
 }
+
 
 output "rds_username" {
   description = "RDS database master username"
