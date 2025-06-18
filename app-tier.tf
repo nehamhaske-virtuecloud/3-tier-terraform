@@ -2,7 +2,7 @@ resource "aws_instance" "app_instance" {
   count                     = 1
   ami                       = data.aws_ami.ubuntu.id
   instance_type             = var.instance_type
-  subnet_id                 = values(aws_subnet.app_private)[0].id
+  subnet_id = values(aws_subnet.private_app)[0].id
   vpc_security_group_ids    = [aws_security_group.app_sg.id]
   associate_public_ip_address = false
   key_name                  = var.key_name
