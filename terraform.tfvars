@@ -6,7 +6,7 @@ availability_zone    = "ap-south-1a"
 
 # ami_id               = "ami-0f58b397bc5c1f2e8"  # Ubuntu 24.04 LTS (update if needed)
 instance_type        = "t2.micro"
-key_name             = "my-new-key"
+key_name             = "my-key-pair"
 
 allowed_ip           = "0.0.0.0/0"
 
