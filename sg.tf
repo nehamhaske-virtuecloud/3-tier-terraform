@@ -1,12 +1,22 @@
-resource "aws_security_group" "alb_sg" {
-  name   = "alb-sg"
-  vpc_id = aws_vpc.main.id
+resource "aws_security_group" "web_sg" {
+  name        = "${var.project_name}-web-sg"
+  description = "Allow HTTP and SSH"
+  vpc_id      = aws_vpc.main.id
 
   ingress {
+    description = "Allow HTTP from anywhere"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.allowed_ip]
+  }
+
+  ingress {
+    description = "Allow SSH from anywhere"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [var.allowed_ip]
   }
 
   egress {
@@ -14,18 +24,32 @@ resource "aws_security_group" "alb_sg" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.project_name}-web-sg"
   }
 }
 
 resource "aws_security_group" "app_sg" {
-  name   = "app-sg"
-  vpc_id = aws_vpc.main.id
+  name        = "${var.project_name}-app-sg"
+  description = "Allow HTTP from web SG"
+  vpc_id      = aws_vpc.main.id
 
   ingress {
+    description     = "Allow HTTP from web EC2"
     from_port       = 8080
     to_port         = 8080
     protocol        = "tcp"
-    security_groups = [aws_security_group.alb_sg.id]
+    security_groups = [aws_security_group.web_sg.id]
+  }
+
+  ingress {
+    description = "Allow SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [var.allowed_ip]
   }
 
   egress {
@@ -34,13 +58,19 @@ resource "aws_security_group" "app_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name = "${var.project_name}-app-sg"
+  }
 }
 
 resource "aws_security_group" "rds_sg" {
-  name   = "rds-sg"
-  vpc_id = aws_vpc.main.id
+  name        = "${var.project_name}-rds-sg"
+  description = "Allow DB access from app EC2"
+  vpc_id      = aws_vpc.main.id
 
   ingress {
+    description     = "MySQL Access from App Tier"
     from_port       = 3306
     to_port         = 3306
     protocol        = "tcp"
@@ -53,30 +83,8 @@ resource "aws_security_group" "rds_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-}
-
-resource "aws_security_group" "web_sg" {
-  name        = "web-sg"
-  description = "Allow HTTP from internet and access to ALB"
-  vpc_id      = aws_vpc.main.id
-
-  ingress {
-    description      = "Allow HTTP from anywhere"
-    from_port        = 80
-    to_port          = 80
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-
-  egress {
-    description      = "Allow all outbound"
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
 
   tags = {
-    Name = "web-sg"
+    Name = "${var.project_name}-rds-sg"
   }
 }
