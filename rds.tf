@@ -1,28 +1,28 @@
 resource "aws_db_subnet_group" "rds_subnet_group" {
-  name       = "rds-subnet-group"
-  subnet_ids = [aws_subnet.private_db[0].id, aws_subnet.private_db[1].id]
+  name       = "${var.project_name}-db-subnet-group"
+  subnet_ids = [aws_subnet.private.id]
 
   tags = {
-    Name = "rds-subnet-group"
+    Name = "${var.project_name}-db-subnet-group"
   }
 }
 
-resource "aws_db_instance" "mysql" {
-  allocated_storage    = 20
-  engine               = "mysql"
-  engine_version       = "8.0"
-  instance_class       = "db.t3.micro"
-  db_name              = "sampledb"
-  username             = "admin"
-  password             = "password123!"
-  db_subnet_group_name = aws_db_subnet_group.rds_subnet_group.name
-  vpc_security_group_ids = [aws_security_group.rds_sg.id]
-  skip_final_snapshot  = true
-  multi_az             = false
-  publicly_accessible  = false
-  backup_retention_period = 0
+resource "aws_db_instance" "db" {
+  identifier              = "${var.project_name}-db"
+  engine                  = "mysql"
+  instance_class          = "db.t3.micro"
+  allocated_storage       = 20
+  username                = var.db_username
+  password                = var.db_password
+  db_name                 = var.db_name
+  vpc_security_group_ids  = [aws_security_group.rds_sg.id]
+  db_subnet_group_name    = aws_db_subnet_group.rds_subnet_group.name
+  skip_final_snapshot     = true
+  publicly_accessible     = false
+  multi_az                = false
+  deletion_protection     = false
 
   tags = {
-    Name = "mysql-db"
+    Name = "${var.project_name}-rds"
   }
 }
