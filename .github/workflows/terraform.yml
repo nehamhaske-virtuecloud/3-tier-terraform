@@ -36,6 +36,12 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -out=tfplan
 
-      - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
+      - name: Terraform Apply (Debug)
+        run: |
+          terraform apply -auto-approve tfplan || (
+            echo "Terraform apply failed"
+            echo "========================"
+            terraform show -json tfplan | jq '.' > plan.json || echo "Failed to show plan"
+            exit 1
+          )
         
