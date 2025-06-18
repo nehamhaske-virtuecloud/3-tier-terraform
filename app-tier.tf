@@ -1,5 +1,5 @@
 resource "aws_instance" "app_instance" {
-  # ami                    = "ami-0f58b397bc5c1f2e8" # Ubuntu 24.04 (check latest)
+  ami = data.aws_ami.ubuntu.id
   instance_type          = "t2.micro"
   subnet_id              = aws_subnet.private_app[0].id
   vpc_security_group_ids = [aws_security_group.app_sg.id]
