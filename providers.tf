@@ -1,10 +1,16 @@
-# ------------------- PROVIDER -------------------
-provider "aws" {
-  region = var.region
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+
+  required_version = ">= 1.3.0"
+
+  backend "local" {}
 }
 
-tags = {
-  Owner       = "Neha Mhaske"
-  Environment = "dev"
-  Project     = "3-tier-terraform"
+provider "aws" {
+  region = "ap-south-1"
 }
