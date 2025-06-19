@@ -1,3 +1,4 @@
+region               = "ap-south-1"
 project_name         = "neha-3tier"
 vpc_cidr_block       = "10.0.0.0/16"
 
